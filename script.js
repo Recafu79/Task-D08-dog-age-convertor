@@ -37,13 +37,12 @@ function updateDays() {
 
 monthSelect.addEventListener("change", updateDays);
 yearSelect.addEventListener("change", updateDays);
-updateDays(); // 頁面載入時先產生一次日期
-
+updateDays(); // 初次產生日期
 
 // ★ AKC 人狗年齡換算 ★
-// 第一年 = 15 人類歲
-// 第二年 = +9 人類歲（累計 24）
-// 第三年以後，每年 +5 人類歲
+// 第一年：15 人類歲
+// 第二年：+9（=24）
+// 第三年後：每年 +5
 function dogToHumanYears(dogAge) {
     if (dogAge <= 0) return 0;
     if (dogAge === 1) return 15;
@@ -51,8 +50,7 @@ function dogToHumanYears(dogAge) {
     return 24 + (dogAge - 2) * 5;
 }
 
-
-// 計算結果
+// 計算按鈕事件
 document.getElementById("calcBtn").addEventListener("click", function () {
     const y = parseInt(yearSelect.value);
     const m = parseInt(monthSelect.value);
@@ -66,18 +64,39 @@ document.getElementById("calcBtn").addEventListener("click", function () {
         return;
     }
 
-    // 以天數換算狗狗實齡
     const diffMs = today - birthDate;
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
     const dogAge = +(diffDays / 365.25).toFixed(2);
 
-    // 換算為人類年齡（小數年齡按比例換算）
     const humanAge =
         dogToHumanYears(Math.floor(dogAge)) +
         (dogAge % 1) * 5;
 
-    document.getElementById("result").innerHTML = `
+    const resultHTML = `
         🐕 狗狗實際年齡：約 <b>${dogAge.toFixed(1)}</b> 歲<br>
         👨‍🦳 等同人類年齡：約 <b>${humanAge.toFixed(1)}</b> 歲
     `;
+
+    document.getElementById("result").innerHTML = resultHTML;
+
+    // 🔥 新增：儲存到 localStorage
+    localStorage.setItem("dogCalcResult", resultHTML);
+    localStorage.setItem("dogBirth", JSON.stringify({ y, m, d }));
+});
+
+// 🔥 新增：網頁載入時顯示上次計算結果
+window.addEventListener("load", function () {
+    const savedResult = localStorage.getItem("dogCalcResult");
+    const savedBirth = localStorage.getItem("dogBirth");
+
+    if (savedResult && savedBirth) {
+        document.getElementById("result").innerHTML = savedResult;
+
+        const birth = JSON.parse(savedBirth);
+        yearSelect.value = birth.y;
+        monthSelect.value = birth.m;
+
+        updateDays(); // 重新生成正確的日數
+        daySelect.value = birth.d;
+    }
 });
