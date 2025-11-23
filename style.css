@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft JhengHei", sans-serif;
+    background-image: url("https://s2.best-wallpaper.net/wallpaper/1920x1200/1407/Cute-puppy-dog-pet-face-hand_1920x1200.jpg");
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(3px);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.85);
+    width: 380px;
+    margin: 80px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 26px;
+    color: #333;
+}
+
+.input-section {
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: #ff8800;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff6600;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    padding: 10px;
+    background: #fff5e6;
+    border-radius: 6px;
+}
